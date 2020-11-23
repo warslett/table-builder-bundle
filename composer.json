@@ -1,0 +1,23 @@
+{
+    "name": "warslett/table-builder-bundle",
+    "description": "A symfony bundle for integration warslett/table-builder into your symfony app. Table building, table abstraction and table rendering.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "William Arslett",
+            "email": "will@arslett.uk"
+        }
+    ],
+    "require": {
+        "symfony/http-kernel": "^5.1",
+        "warslett/table-builder": "dev-master",
+        "symfony/dependency-injection": "^5.1",
+        "symfony/config": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "WArslett\\TableBuilderBundle\\": "src"
+        }
+    }
+}

@@ -1,0 +1,22 @@
+services:
+
+  _defaults:
+    autowire: true
+
+  WArslett\TableBuilder\TableBuilderFactory:
+
+  WArslett\TableBuilder\TableBuilderFactoryInterface:
+    alias: WArslett\TableBuilder\TableBuilderFactory
+
+  WArslett\TableBuilder\Twig\StandardTemplatesLoader:
+    tags: [ 'twig.loader' ]
+
+  WArslett\TableBuilder\Renderer\Html\TwigRenderer:
+    arguments:
+      $themeTemplatePath: 'table-builder/bootstrap4.html.twig'
+
+  WArslett\TableBuilder\Renderer\Html\HtmlTableRendererInterface:
+    alias: WArslett\TableBuilder\Renderer\Html\TwigRenderer
+
+  WArslett\TableBuilder\Twig\TableRendererExtension:
+    tags: [ 'twig.extension' ]
