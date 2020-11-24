@@ -102,6 +102,9 @@ table_builder:
 
   twig_renderer:
     theme_template: 'table-builder/bootstrap4.html.twig' # you can change the default twig theme here
+    cell_value_templates:
+      App\TableBuilder\Column\MyCustomColumn: 'my_custom_block.html.twig' # add a custom column template
+
 ```
 
 ## Themeing

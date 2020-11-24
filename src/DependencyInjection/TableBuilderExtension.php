@@ -32,7 +32,25 @@ final class TableBuilderExtension extends Extension
             $twigRendererDefinition = $container->getDefinition(TwigRenderer::class);
 
             if (isset($config['twig_renderer']['theme_template'])) {
-                $twigRendererDefinition->replaceArgument('$themeTemplatePath', $config['twig_renderer']['theme_template']);
+                $twigRendererDefinition->replaceArgument(
+                    '$themeTemplatePath',
+                    $config['twig_renderer']['theme_template']
+                );
+            }
+
+            if (isset($config['twig_renderer']['cell_value_blocks'])) {
+                foreach ($config['twig_renderer']['cell_value_blocks'] as $renderingType => $block) {
+                    $twigRendererDefinition->addMethodCall('registerCellValueBlock', [$renderingType, $block]);
+                }
+            }
+
+            if (isset($config['twig_renderer']['cell_value_templates'])) {
+                foreach ($config['twig_renderer']['cell_value_templates'] as $renderingType => $templatePath) {
+                    $twigRendererDefinition->addMethodCall(
+                        'registerCellValueTemplate',
+                        [$renderingType, $templatePath]
+                    );
+                }
             }
         }
     }
