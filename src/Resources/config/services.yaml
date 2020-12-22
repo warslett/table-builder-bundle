@@ -11,9 +11,18 @@ services:
   WArslett\TableBuilder\Twig\StandardTemplatesLoader:
     tags: [ 'twig.loader' ]
 
+  WArslett\TableBuilder\RouteGeneratorAdapter\SprintfAdapter:
+
+  WArslett\TableBuilder\RouteGeneratorAdapter\SymfonyRoutingAdapter:
+
+  WArslett\TableBuilder\RouteGeneratorAdapter\RouteGeneratorAdapterInterface:
+    alias: WArslett\TableBuilder\RouteGeneratorAdapter\SymfonyRoutingAdapter
+
+  WArslett\TableBuilder\Renderer\Html\PhtmlRenderer:
+
   WArslett\TableBuilder\Renderer\Html\TwigRenderer:
     arguments:
-      $themeTemplatePath: 'table-builder/bootstrap4.html.twig'
+      $themeTemplatePath: 'table-builder/standard.html.twig'
 
   WArslett\TableBuilder\Renderer\Html\HtmlTableRendererInterface:
     alias: WArslett\TableBuilder\Renderer\Html\TwigRenderer
