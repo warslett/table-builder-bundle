@@ -1,4 +1,9 @@
 # Table Builder Bundle
+[![Build Status](https://circleci.com/gh/warslett/table-builder.png?style=shield)](https://circleci.com/gh/warslett/table-builder?branch=master)
+[![codecov](https://codecov.io/gh/warslett/table-builder/branch/master/graph/badge.svg?token=TLPUHTMP2E)](https://codecov.io/gh/warslett/table-builder)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fwarslett%2Ftable-builder%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/warslett/table-builder/master)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 **THIS BUNDLE IS CURRENTLY UNDER DEVELOPMENT**
 
 Table builder bundle provides integration with the warslett/table-builder package and the symfony framework. This bundle
@@ -6,10 +11,13 @@ will register the required services and extensions in Symfony to allow you to us
 symfony project with minimal setup.
 
 ## Installation
-`composer require warslett/table-builder-bundle`
+`composer require warslett/table-builder-bundle warslett/table-builder`
+
+## Documentation
+Full documentation available [here](https://github.com/warslett/table-builder/blob/master/docs/en/index.md).
 
 ## Setup
-Add the bundle to your config/bundles.php array
+Add the bundle to your config/bundles.php array (this will be done automatically for you if you are using symfony flex)
 
 ``` php
 <?php
@@ -92,8 +100,12 @@ Then in your template you can render the table like this:
 {# the table twig function takes the table object as a parameter #}
 {{ table(users_table) }}
 ```
-Which will render your table with pagination and sorting working out the box. You can render two tables on the same page
-and they will sort and paginate independently.
+
+Which will render your table with pagination and sorting working out the box.
+
+![rendered table](https://github.com/warslett/table-builder/raw/master/docs/img/example.png "Rendered Html Table")
+
+You can render two tables on the same page and they will sort and paginate independently.
 
 ## Config
 ``` yaml
@@ -101,10 +113,34 @@ and they will sort and paginate independently.
 table_builder:
 
   twig_renderer:
-    theme_template: 'table-builder/bootstrap4.html.twig' # you can change the default twig theme here
+    # you can change the default twig theme here
+    theme_template: 'table-builder/bootstrap4.html.twig'
+    
+    # add custom column value template from a twig template file
     cell_value_templates:
-      App\TableBuilder\Column\MyCustomColumn: 'my_custom_block.html.twig' # add a custom column template
+      App\TableBuilder\Column\MyCustomColumn: 'my_custom_cell_value_template.html.twig'
+      
+    # add a custom column value template from a block in your theme
+    cell_value_blocks:
+      App\TableBuilder\Column\MyCustomColumn: 'my_custom_cell_value_block'
+      
+  phtml_renderer:
+    # you can change the default phtml theme directory here
+    theme_directory: '%kernel.project_dir%/templates/table-builder'
+    
+    # add custom column value template from a twig template file
+    cell_value_templates:
+      App\TableBuilder\Column\MyCustomColumn: '%kernel.project_dir%/templates/table-builder/my_custom_cell_value_template.phtml'
 
+```
+
+You can also register cell value transformers for the Csv Renderer using service tags:
+```yaml
+services:
+  
+  App\TableBuilder\Csv\MyCustomColumnAdapter:
+    tags:
+      - { name: 'table_builder.csv_cell_value_transformer', rendering_type: App\TableBuilder\Column\MyCustomColumn }
 ```
 
 ## Themeing
