@@ -45,9 +45,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig;
 use WArslett\TableBuilder\Column\TextColumn;
 use WArslett\TableBuilder\DataAdapter\DoctrineOrmAdapter;
-use WArslett\TableBuilder\RequestAdapter\SymfonyHttpAdapter;
 use WArslett\TableBuilder\TableBuilderFactoryInterface;
-use WArslett\TableBuilder\ValueAdapter\PropertyAccessAdapter;
 
 class RetrieveUsers
 {
@@ -68,23 +66,33 @@ class RetrieveUsers
     public function __invoke(Request $request): Response
     {
         $table = $this->tableBuilderFactory->createTableBuilder()
-            ->setRowsPerPageOptions([10, 20, 50])
-            ->setDefaultRowsPerPage(10)
-            ->addColumn(TextColumn::withName('full_name')
-                ->setLabel('Full Name')
-                ->setValueAdapter(PropertyAccessAdapter::withPropertyPath('fullName')))
-            ->addColumn(TextColumn::withName('email')
-                ->setLabel('Email')
-                ->setValueAdapter(PropertyAccessAdapter::withPropertyPath('email')))
-            ->addColumn(TextColumn::withName('manager')
-                ->setLabel("Manager's Name")
-                ->setValueAdapter(PropertyAccessAdapter::withPropertyPath('manager.fullName')))
+            ->rowsPerPageOptions([10, 20, 50])
+            ->defaultRowsPerPage(10)
+            ->add(TextColumn::withName('email')
+                ->label('Email')
+                ->property('email')
+                ->sortable())
+            ->add(DateTimeColumn::withName('last_login')
+                ->label('Last Login')
+                ->property('lastLogin')
+                ->format('Y-m-d H:i:s')
+                ->sortable())
+            ->add(ActionGroupColumn::withName('actions')
+                ->label('Actions')
+                ->add(ActionBuilder::withName('update')
+                    ->label('Update')
+                    ->route('user_update', ['id' => 'id'])) // map 'id' parameter to property path 'id'
+                ->add(ActionBuilder::withName('delete')
+                    ->label('Delete')
+                    ->route('user_delete', ['id' => 'id'])
+                    ->attribute('extra_classes', ['btn-danger'])))
             ->buildTable('users')
             ->setDataAdapter(DoctrineOrmAdapter::withQueryBuilder($this->entityManager->createQueryBuilder()
                 ->select('u')
-                ->from(User::class, 'u')
-            ))
-            ->handleRequest(SymfonyHttpAdapter::withRequest($request))
+                ->from(User::class, 'u'))
+                ->mapSortToggle('email', 'u.email')
+                ->mapSortToggle('last_login', 'u.lastLogin'))
+            ->handleSymfonyRequest($request)
         ;
 
         return new Response($this->twigEnvironment->render('table_page.html.twig', [
