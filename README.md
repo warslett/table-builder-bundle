@@ -1,10 +1,22 @@
 # Table Builder Bundle
-[![Build Status](https://circleci.com/gh/warslett/table-builder.png?style=shield)](https://circleci.com/gh/warslett/table-builder?branch=master)
+
+**warslett/table-builder**:
+
+[![Latest Stable Version](https://poser.pugx.org/warslett/table-builder/v)](//packagist.org/packages/warslett/table-builder)
+[![Build Status](https://circleci.com/gh/warslett/table-builder.png?style=shield)](https://circleci.com/gh/warslett/table-builder)
 [![codecov](https://codecov.io/gh/warslett/table-builder/branch/master/graph/badge.svg?token=TLPUHTMP2E)](https://codecov.io/gh/warslett/table-builder)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fwarslett%2Ftable-builder%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/warslett/table-builder/master)
+![Psalm coverage](https://shepherd.dev/github/warslett/table-builder/coverage.svg)
+[![Total Downloads](https://poser.pugx.org/warslett/table-builder/downloads)](//packagist.org/packages/warslett/table-builder)
+[![Latest Unstable Version](https://poser.pugx.org/warslett/table-builder/v/unstable)](//packagist.org/packages/warslett/table-builder)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-**THIS BUNDLE IS CURRENTLY UNDER DEVELOPMENT**
+**warslett/table-builder-bundle**:
+
+[![Latest Stable Version](https://poser.pugx.org/warslett/table-builder-bundle/v)](//packagist.org/packages/warslett/table-builder-bundle)
+[![Total Downloads](https://poser.pugx.org/warslett/table-builder-bundle/downloads)](//packagist.org/packages/warslett/table-builder-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/warslett/table-builder-bundle/v/unstable)](//packagist.org/packages/warslett/table-builder-bundle)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 Table builder bundle provides integration with the warslett/table-builder package and the symfony framework. This bundle
 will register the required services and extensions in Symfony to allow you to use the table-builder package in a
