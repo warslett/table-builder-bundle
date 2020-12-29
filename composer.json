@@ -11,7 +11,7 @@
     ],
     "require": {
         "symfony/http-kernel": "^5.1",
-        "warslett/table-builder": "dev-master",
+        "warslett/table-builder": "^0.1",
         "symfony/dependency-injection": "^5.1",
         "symfony/config": "^5.1"
     },
